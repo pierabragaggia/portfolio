@@ -18,7 +18,7 @@ class Presentazione extends StatelessWidget {
         ), */
         CircleAvatar(
           child: ClipOval(
-            child: Image.asset('assets/profile.jpg'),
+            child: Image.asset('profile.jpg'),
           ),
           minRadius: 50,
           maxRadius: 100,
