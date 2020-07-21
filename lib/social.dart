@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:sito_portfolio/Collaborazione.dart';
 import 'package:sito_portfolio/IGPost.dart';
 import 'package:sito_portfolio/MouseCursor.dart';
-import 'package:sito_portfolio/homepage.dart';
 import 'package:sito_portfolio/main.dart';
 import 'package:universal_html/html.dart' as html;
 

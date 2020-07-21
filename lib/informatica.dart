@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:sito_portfolio/main.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
-import 'homepage.dart';
-
 class InformaticaCV extends StatelessWidget {
   const InformaticaCV({Key key}) : super(key: key);
 

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sito_portfolio/VaiA.dart';
 import 'package:sito_portfolio/homepage.dart';
-import 'package:sito_portfolio/informatica.dart';
-import 'package:sito_portfolio/social.dart';
 
 void main() {
   runApp(MyApp());
