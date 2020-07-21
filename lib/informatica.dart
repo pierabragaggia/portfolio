@@ -50,7 +50,7 @@ class InformaticaCV extends StatelessWidget {
                           bottomLineStyle: LineStyle(color: primario),
                           indicatorStyle:
                               IndicatorStyle(color: primario, width: 25),
-                          leftChild: Center(child: Text('2008-2013')),
+                          leftChild: Center(child: Text('2008 - 2013')),
                           rightChild: ContentWidget(testi: [
                             'Istituto tecnico settore tecnologico "J. F. Kennedy"',
                             'Diploma di perito Informatico, 80/100\n• Informatica,\n• Sistemi,\n• Inglese Tecnico,\n• Elettronica e telecomunicazioni',
@@ -97,7 +97,7 @@ class InformaticaCV extends StatelessWidget {
                         indicatorStyle:
                             IndicatorStyle(color: primario, width: 25),
                         rightChild: Center(
-                          child: Text('2018-oggi'),
+                          child: Text('2018 - oggi'),
                         ),
                         leftChild: ContentWidget(
                           testi: [
@@ -116,7 +116,7 @@ class InformaticaCV extends StatelessWidget {
                         indicatorStyle:
                             IndicatorStyle(color: primario, width: 25),
                         leftChild: Center(
-                          child: Text('2018-oggi'),
+                          child: Text('2018 - oggi'),
                         ),
                         rightChild: Padding(
                           padding: const EdgeInsets.all(8.0)
@@ -124,7 +124,7 @@ class InformaticaCV extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Container(
-                              height: 300,
+                              height: 400,
                               constraints: BoxConstraints.tightForFinite(
                                 width: .6 * MediaQuery.of(context).size.width,
                               ),
@@ -226,11 +226,8 @@ class InformaticaCV extends StatelessWidget {
               top: 1,
               left: 1,
               child: IconButton(
-                icon: Icon(Icons.home),
-                onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => MyHomePage()),
-                    (route) => true),
-              ),
+                  icon: Icon(Icons.home),
+                  onPressed: () => Navigator.of(context).pop()),
             ),
           ],
         ),

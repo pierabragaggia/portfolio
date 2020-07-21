@@ -94,7 +94,9 @@ class IgInfo extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              IconaIG(),
+              Icona(
+                img: 'profiloIG.jpg',
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 15.0),
                 child: Text(
@@ -150,7 +152,7 @@ class IgInfoHover extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconaIG(),
+                Icona(img: 'profiloIG.jpg'),
                 Padding(
                   padding: const EdgeInsets.only(left: 15.0),
                   child: Text(
@@ -221,8 +223,9 @@ class IgInfoHover extends StatelessWidget {
   }
 }
 
-class IconaIG extends StatelessWidget {
-  const IconaIG({Key key}) : super(key: key);
+class Icona extends StatelessWidget {
+  const Icona({Key key, this.img}) : super(key: key);
+  final String img;
 
   @override
   Widget build(BuildContext context) {
@@ -233,7 +236,7 @@ class IconaIG extends StatelessWidget {
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(width: 3, color: Colors.blueGrey[100])),
-      child: ClipOval(child: Image.asset('profiloIG.jpg')),
+      child: ClipOval(child: Image.asset(img)),
     );
   }
 }
@@ -250,7 +253,7 @@ class Informatica extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              IconaIG(),
+              Icona(img: 'profiloCV.jpg'),
               Padding(
                 padding: const EdgeInsets.only(left: 50.0),
                 child: Text(

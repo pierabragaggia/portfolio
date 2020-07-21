@@ -1,6 +1,7 @@
 import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
+import 'package:sito_portfolio/MouseCursor.dart';
 
 class IGPost extends StatelessWidget {
   const IGPost({Key key, this.url, this.image, this.text, this.width = 300})
@@ -18,23 +19,23 @@ class IGPost extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: AspectRatio(
           aspectRatio: .9,
-          child: GestureDetector(
-            onTap: () => html.window.open(url, ''),
-            child: Column(
-              children: [
-                Image.asset(image),
-                if (text != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Expanded(
+          child: MouseCursor(
+            child: GestureDetector(
+              onTap: () => url != null ? html.window.open(url, '') : null,
+              child: Column(
+                children: [
+                  Image.asset(image),
+                  if (text != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
                       child: Text(
                         text,
                         overflow: TextOverflow.fade,
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 27),
                       ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

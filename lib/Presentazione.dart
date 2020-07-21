@@ -55,7 +55,16 @@ class Presentazione extends StatelessWidget {
                     url: 'https://www.pinterest.it/pieradeglispiriti/',
                   ),
                 ],
-              )
+              ),
+              RaisedButton(
+                child: Row(
+                  children: [
+                    Text('Curriculum Vitae '),
+                    Icon(Icons.arrow_forward_ios),
+                  ],
+                ),
+                onPressed: () => html.window.open('assets/cv.pdf', ''),
+              ),
             ],
           ),
         ),

@@ -29,24 +29,25 @@ class Collaborazione extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                        inherit: true,
-                        decoration: TextDecoration.underline,
-                        fontSize: 40),
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Center(
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                          inherit: true, fontSize: 40, color: primario),
+                    ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        testo,
-                        style: TextStyle(
-                          inherit: true,
-                          fontSize: 24,
-                        ),
+                  Center(
+                    child: Text(
+                      testo,
+                      style: TextStyle(
+                        inherit: true,
+                        fontSize: 24,
                       ),
                     ),
                   ),

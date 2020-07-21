@@ -1,6 +1,8 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:sito_portfolio/Collaborazione.dart';
 import 'package:sito_portfolio/IGPost.dart';
+import 'package:sito_portfolio/MouseCursor.dart';
 import 'package:sito_portfolio/homepage.dart';
 import 'package:sito_portfolio/main.dart';
 import 'package:universal_html/html.dart' as html;
@@ -88,12 +90,30 @@ class _SocialPageState extends State<SocialPage> {
                       children: [
                         Expanded(
                           flex: 1,
-                          child: CircleAvatar(
-                            child: ClipOval(
-                              child: Image.asset('profiloIG.jpg'),
-                            ),
-                            minRadius: 50,
-                            maxRadius: 170,
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                child: ClipOval(
+                                  child: Image.asset('profiloIG.jpg'),
+                                ),
+                                minRadius: 50,
+                                maxRadius: 170,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: RaisedButton(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text('Mediakit '),
+                                      Icon(Icons.arrow_forward_ios)
+                                    ],
+                                  ),
+                                  onPressed: () => html.window
+                                      .open('assets/mediakit.pdf', ''),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         ChiSono()
@@ -135,15 +155,22 @@ class _SocialPageState extends State<SocialPage> {
               left: 1,
               child: IconButton(
                 icon: Icon(Icons.home),
-                onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => MyHomePage()),
-                    (route) => true),
+                onPressed: () => Navigator.of(context).pop(),
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    if (mouseHint != null) {
+      mouseHint.remove();
+      mouseHint = null;
+    }
+    super.dispose();
   }
 }
 
@@ -174,9 +201,7 @@ class ChiSono extends StatelessWidget {
               style: TextStyle(fontSize: 30),
             ),
           ),
-          CosaFaccio(
-            height: 150,
-          )
+          CosaFaccio(),
         ],
       ),
     );
@@ -275,7 +300,17 @@ class Contatti extends StatelessWidget {
 
 class Collab extends StatelessWidget {
   const Collab({Key key}) : super(key: key);
+  final List<IG> wakIMG = const [
+    IG(img: 'wak.jpeg', url: 'https://www.instagram.com/p/Bl5xms7l6Qs/'),
+    IG(img: 'wak2.jpeg', url: ''),
+    IG(img: 'wak3.jpeg', url: ''),
+    IG(img: 'wak4.jpeg', url: ''),
+  ];
 
+  final List<IG> imgBAO = const [
+    IG(img: 'bao.jpeg', url: 'https://www.youtube.com/watch?v=qt_tW_-PtXA'),
+    IG(img: 'bao2.JPG', url: 'https://www.instagram.com/tv/B9y00tNHu2M/')
+  ];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -294,15 +329,10 @@ class Collab extends StatelessWidget {
               style: TextStyle(color: primario, fontSize: 65),
             ),
             Collaborazione(
-              title: 'Bao Publishing',
-              testo:
-                  'Collaborazione in corso da diversi anni, coinvolta come partecipante in alcuni Blog Tour organizzati da Bao per promuovere alcuni titoli.\n\n In particolare: \n - Blog Tour di presentazione de “Il re bianco” di Davide Toffolo\n - Partecipazione all’iniziativa “Non sono libri (solo) per ragazze” con il libro “California Dreamin’” Pénélope Bagieu',
-              contenuto: IGPost(
-                image: 'assets/profile.jpg',
-                text: 'testodiprova\nsdhalsdjh',
-                url: 'https://www.instagram.com/tv/B4mrzSInVt4/',
-              ),
-            ),
+                title: 'Bao Publishing',
+                testo:
+                    'Collaborazione in corso da diversi anni, coinvolta come partecipante in alcuni Blog Tour organizzati da Bao per promuovere alcuni titoli.\n\n In particolare: \n - Blog Tour di presentazione de “Il re bianco” di Davide Toffolo\n - Partecipazione all’iniziativa “Non sono libri (solo) per ragazze” con il libro “California Dreamin’” Pénélope Bagieu',
+                contenuto: IGCarousel(img: imgBAO)),
             Container(
               height: 600,
               decoration: BoxDecoration(
@@ -313,24 +343,39 @@ class Collab extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20)),
               margin: EdgeInsets.all(10),
               padding: const EdgeInsets.all(16.0),
-              child: Row(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  IGPost(
-                    image: 'profile.jpg',
-                    text: 'Feltrinelli Editore',
-                    width: MediaQuery.of(context).size.width * .22,
+                  Text('inoltre collaboro con:'),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IGPost(
+                          image: 'feltrinelli.JPG',
+                          url: 'https://www.instagram.com/p/B2g-vraHIef/',
+                          text: 'Feltrinelli Editore',
+                          width: MediaQuery.of(context).size.width * .22,
+                        ),
+                        IGPost(
+                          image: 'eo.JPG',
+                          text: 'Edizioni E/O',
+                          url: 'https://www.instagram.com/p/B5IrsIRH2pY/',
+                          width: MediaQuery.of(context).size.width * .22,
+                        ),
+                        IGPost(
+                          image: 'bompiani.JPG',
+                          text: 'Bompiani',
+                          url: 'https://www.instagram.com/p/B4xiXunHnez/',
+                          width: MediaQuery.of(context).size.width * .22,
+                        ),
+                      ],
+                    ),
                   ),
-                  IGPost(
-                    image: 'profile.jpg',
-                    text: 'Add Editore',
-                    width: MediaQuery.of(context).size.width * .22,
-                  ),
-                  IGPost(
-                    image: 'profile.jpg',
-                    text: 'Edizioni Clichy',
-                    width: MediaQuery.of(context).size.width * .22,
-                  ),
+                  Text(
+                    'Add Editore, Edizioni Clichy, AbEditore ed altri',
+                    style: TextStyle(inherit: true, fontSize: 20),
+                  )
                 ],
               ),
             ),
@@ -343,22 +388,24 @@ class Collab extends StatelessWidget {
               title: 'DAME',
               testo:
                   'Collaborazione con il brand DAME per cui ho creato una video recensione del loro prodotto.',
-              contenuto: GestureDetector(
-                onTap: () => html.window
-                    .open('https://www.instagram.com/tv/B4mrzSInVt4/', ''),
-                child: Stack(
-                  children: [
-                    Center(
-                      child: Image.asset('assets/dame.jpg'),
-                    ),
-                    Center(
-                      child: Icon(
-                        Icons.play_arrow,
-                        color: Colors.white,
-                        size: 90,
+              contenuto: MouseCursor(
+                child: GestureDetector(
+                  onTap: () => html.window
+                      .open('https://www.instagram.com/tv/B4mrzSInVt4/', ''),
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Image.asset('assets/dame.jpg'),
                       ),
-                    ),
-                  ],
+                      Center(
+                        child: Icon(
+                          Icons.play_arrow,
+                          color: Colors.white,
+                          size: 90,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -366,13 +413,16 @@ class Collab extends StatelessWidget {
               title: 'LALALAB',
               testo:
                   'Collaborazione in corso con scambio di prodotti e con codice sconto affiliato.\nPromozione del brand con foto e storie sul mio profilo Instagram.',
-              contenuto: Container(),
+              contenuto: IGPost(
+                url: 'https://www.instagram.com/p/B2R1YNcnGHm/',
+                image: 'lalalab.JPG',
+              ),
             ),
             Collaborazione(
               title: 'WE ARE KNITTERS',
               testo:
                   'Collaborazione in corso da un paio d’anni con scambio di prodotti.\nPromozione del brand attraverso un Giveaway di un kit per un maglia all’uncinetto.\nShowcase dei prodotti attraverso foto e dettagli condivisi sul profilo e nelle storie Instagram.',
-              contenuto: Container(),
+              contenuto: IGCarousel(img: wakIMG),
             ),
           ],
         ),
@@ -381,13 +431,74 @@ class Collab extends StatelessWidget {
   }
 }
 
-class CosaFaccio extends StatelessWidget {
-  const CosaFaccio({
-    Key key,
-    @required this.height,
-  }) : super(key: key);
+class IG {
+  final String url;
+  final String img;
 
-  final double height;
+  const IG({this.url = '', this.img});
+}
+
+class IGCarousel extends StatefulWidget {
+  const IGCarousel({Key key, @required this.img}) : super(key: key);
+
+  final List<IG> img;
+
+  @override
+  _IGCarouselState createState() => _IGCarouselState();
+}
+
+class _IGCarouselState extends State<IGCarousel> {
+  int _current = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CarouselSlider.builder(
+          itemCount: widget.img.length,
+          itemBuilder: (context, i) => MouseCursor(
+            child: GestureDetector(
+              onTap: () => (widget.img[i].url != null)
+                  ? html.window.open(widget.img[i].url, '')
+                  : null,
+              child: Image.asset(widget.img[i].img),
+            ),
+          ),
+          options: CarouselOptions(
+            pauseAutoPlayOnManualNavigate: true,
+            pauseAutoPlayOnTouch: true,
+            aspectRatio: 1,
+            initialPage: 0,
+            autoPlay: false,
+            enlargeCenterPage: true,
+            autoPlayInterval: Duration(seconds: 2),
+            onPageChanged: (index, reason) => setState(() => _current = index),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: widget.img.map((url) {
+            int index = widget.img.indexOf(url);
+            return Container(
+              width: 8.0,
+              height: 8.0,
+              margin: EdgeInsets.symmetric(horizontal: 2.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _current == index
+                    ? Color.fromRGBO(0, 0, 0, 0.9)
+                    : Color.fromRGBO(0, 0, 0, 0.4),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+}
+
+class CosaFaccio extends StatelessWidget {
+  const CosaFaccio({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -405,11 +516,6 @@ class CosaFaccio extends StatelessWidget {
             Text(
               'COSA FACCIO',
               style: TextStyle(color: primario, fontSize: 65),
-              /* style: TextStyle(
-                  inherit: true,
-                  decoration: TextDecoration.underline,
-                  fontSize: 40,
-                  color: primario), */
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20.0, right: 200),
