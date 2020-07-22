@@ -1,9 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:sito_portfolio/Collaborazione.dart';
 import 'package:sito_portfolio/IGPost.dart';
 import 'package:sito_portfolio/MouseCursor.dart';
 import 'package:sito_portfolio/main.dart';
+import 'package:sito_portfolio/util.dart';
 import 'package:universal_html/html.dart' as html;
 
 class SocialPage extends StatefulWidget {
@@ -42,122 +44,131 @@ class _SocialPageState extends State<SocialPage> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width * .5;
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => Overlay.of(context).insert(mouseHint));
+    WidgetsBinding.instance.addPostFrameCallback(
+        (_) => width * 2 > 1000 ? Overlay.of(context).insert(mouseHint) : null);
 
     return Scaffold(
-      body: SingleChildScrollView(
-        controller: _controller,
-        child: Stack(
-          children: [
-            Center(
-              child: Column(
-                children: [
-                  Container(
-                    height: 200,
-                    color: primario,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'PIERADEGLISPIRITI',
-                            style: TextStyle(
-                                fontSize: 50,
-                                color: Colors.white,
-                                letterSpacing: 30),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            'Bookinfluencer e content creator',
-                            style: TextStyle(
+      body: LayoutBuilder(
+        builder: (context, constraints) => SingleChildScrollView(
+          controller: _controller,
+          child: Stack(
+            children: [
+              Center(
+                child: Column(
+                  children: [
+                    Container(
+                      height: constraints.maxHeight * .3,
+                      color: primario,
+                      padding: EdgeInsets.all(8),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FittedBox(
+                              child: AutoSizeText(
+                                'PIERADEGLISPIRITI',
+                                maxLines: 1,
+                                style: TextStyle(
+                                    fontSize: 50,
+                                    color: Colors.white,
+                                    letterSpacing: 30),
+                              ),
+                            ),
+                            SizedBox(
+                              height: constraints.maxHeight * .03,
+                            ),
+                            AutoSizeText(
+                              'Bookinfluencer e content creator',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.white,
-                                letterSpacing: 5),
+                                letterSpacing: 5,
+                              ),
+                              maxLines: 2,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      //height: 400,
+                      padding: EdgeInsets.symmetric(horizontal: width * .025),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  child: ClipOval(
+                                    child: Image.asset('profiloIG.jpg'),
+                                  ),
+                                  minRadius: 50,
+                                  maxRadius: 170,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: RaisedButton(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text('Mediakit '),
+                                        Icon(Icons.arrow_forward_ios)
+                                      ],
+                                    ),
+                                    onPressed: () => html.window
+                                        .open('assets/mediakit.pdf', ''),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          ChiSono()
+                        ],
+                      ),
+                    ),
+                    Container(
+                      color: secondario.withOpacity(.7),
+                      height: 170,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          NumberInfo(
+                            value: '9,63 %',
+                            description: 'engagement rate',
+                          ),
+                          NumberInfo(
+                            value: '5100 +',
+                            description: 'ig followers',
+                          ),
+                          NumberInfo(
+                            value: '1100 +',
+                            description: 'ig stories views',
+                          ),
+                          NumberInfo(
+                            value: '18 - 34 anni',
+                            description: '85% donne - 15% uomini',
                           )
                         ],
                       ),
                     ),
-                  ),
-                  Container(
-                    //height: 400,
-                    padding: EdgeInsets.symmetric(horizontal: width * .025),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              CircleAvatar(
-                                child: ClipOval(
-                                  child: Image.asset('profiloIG.jpg'),
-                                ),
-                                minRadius: 50,
-                                maxRadius: 170,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: RaisedButton(
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text('Mediakit '),
-                                      Icon(Icons.arrow_forward_ios)
-                                    ],
-                                  ),
-                                  onPressed: () => html.window
-                                      .open('assets/mediakit.pdf', ''),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        ChiSono()
-                      ],
-                    ),
-                  ),
-                  Container(
-                    color: secondario.withOpacity(.7),
-                    height: 170,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        NumberInfo(
-                          value: '9,63 %',
-                          description: 'engagement rate',
-                        ),
-                        NumberInfo(
-                          value: '5100 +',
-                          description: 'ig followers',
-                        ),
-                        NumberInfo(
-                          value: '1100 +',
-                          description: 'ig stories views',
-                        ),
-                        NumberInfo(
-                          value: '18 - 34 anni',
-                          description: '85% donne - 15% uomini',
-                        )
-                      ],
-                    ),
-                  ),
-                  Collab(),
-                  Contatti(),
-                ],
+                    Collab(),
+                    Contatti(),
+                  ],
+                ),
               ),
-            ),
-            Positioned(
-              top: 1,
-              left: 1,
-              child: IconButton(
-                icon: Icon(Icons.home),
-                onPressed: () => Navigator.of(context).pop(),
+              Positioned(
+                top: 1,
+                left: 1,
+                child: IconButton(
+                  icon: Icon(Icons.home),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -312,120 +323,295 @@ class Collab extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 200, vertical: 50),
-      child: DefaultTextStyle(
-        style: TextStyle(
-          fontFamily: 'AmericanTypewriter',
-          color: Colors.black,
-          fontSize: 30,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              'COLLABORAZIONI',
-              style: TextStyle(color: primario, fontSize: 65),
-            ),
-            Collaborazione(
-                title: 'Bao Publishing',
-                testo:
-                    'Collaborazione in corso da diversi anni, coinvolta come partecipante in alcuni Blog Tour organizzati da Bao per promuovere alcuni titoli.\n\n In particolare: \n - Blog Tour di presentazione de “Il re bianco” di Davide Toffolo\n - Partecipazione all’iniziativa “Non sono libri (solo) per ragazze” con il libro “California Dreamin’” Pénélope Bagieu',
-                contenuto: IGCarousel(img: imgBAO)),
-            Container(
-              height: 600,
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    color: primario,
-                    width: 4,
-                  ),
-                  borderRadius: BorderRadius.circular(20)),
-              margin: EdgeInsets.all(10),
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text('inoltre collaboro con:'),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IGPost(
-                          image: 'feltrinelli.JPG',
-                          url: 'https://www.instagram.com/p/B2g-vraHIef/',
-                          text: 'Feltrinelli Editore',
-                          width: MediaQuery.of(context).size.width * .22,
-                        ),
-                        IGPost(
-                          image: 'eo.JPG',
-                          text: 'Edizioni E/O',
-                          url: 'https://www.instagram.com/p/B5IrsIRH2pY/',
-                          width: MediaQuery.of(context).size.width * .22,
-                        ),
-                        IGPost(
-                          image: 'bompiani.JPG',
-                          text: 'Bompiani',
-                          url: 'https://www.instagram.com/p/B4xiXunHnez/',
-                          width: MediaQuery.of(context).size.width * .22,
-                        ),
-                      ],
+    return LayoutBuilder(
+      builder: (context, constraints) => isMedium(constraints)
+          ? Container(
+              padding: EdgeInsets.symmetric(
+                  horizontal: constraints.maxWidth * .05, vertical: 50),
+              child: DefaultTextStyle(
+                style: TextStyle(
+                  fontFamily: 'AmericanTypewriter',
+                  color: Colors.black,
+                  fontSize: 30,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    AutoSizeText(
+                      'COLLABORAZIONI',
+                      style: TextStyle(color: primario, fontSize: 65),
+                      maxLines: 1,
                     ),
-                  ),
-                  Text(
-                    'Add Editore, Edizioni Clichy, AbEditore ed altri',
-                    style: TextStyle(inherit: true, fontSize: 20),
-                  )
-                ],
-              ),
-            ),
-            /* Text(
-              'Feltrinelli Editore, Add Editore, Bompiani, Edizioni Clichy, ...',
-              style: TextStyle(inherit: true, fontSize: 24),
-            ), */
-            Text('e inoltre'),
-            Collaborazione(
-              title: 'DAME',
-              testo:
-                  'Collaborazione con il brand DAME per cui ho creato una video recensione del loro prodotto.',
-              contenuto: MouseCursor(
-                child: GestureDetector(
-                  onTap: () => html.window
-                      .open('https://www.instagram.com/tv/B4mrzSInVt4/', ''),
-                  child: Stack(
-                    children: [
-                      Center(
-                        child: Image.asset('assets/dame.jpg'),
+                    Collaborazione(
+                        title: 'Bao Publishing',
+                        testo:
+                            'Collaborazione in corso da diversi anni, coinvolta come partecipante in alcuni Blog Tour organizzati da Bao per promuovere alcuni titoli.\n\n In particolare: \n - Blog Tour di presentazione de “Il re bianco” di Davide Toffolo\n - Partecipazione all’iniziativa “Non sono libri (solo) per ragazze” con il libro “California Dreamin’” Pénélope Bagieu',
+                        contenuto: IGCarousel(img: imgBAO)),
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: primario,
+                            width: 4,
+                          ),
+                          borderRadius: BorderRadius.circular(20)),
+                      margin: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(16.0),
+                      child: LayoutBuilder(
+                        builder: (context, constraints) => isMedium(constraints)
+                            ? Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text('inoltre collaboro con:'),
+                                  IGPost(
+                                    image: 'feltrinelli.JPG',
+                                    url:
+                                        'https://www.instagram.com/p/B2g-vraHIef/',
+                                    text: 'Feltrinelli Editore',
+                                    width:
+                                        MediaQuery.of(context).size.width * .22,
+                                  ),
+                                  IGPost(
+                                    image: 'eo.JPG',
+                                    text: 'Edizioni E/O',
+                                    url:
+                                        'https://www.instagram.com/p/B5IrsIRH2pY/',
+                                    width:
+                                        MediaQuery.of(context).size.width * .22,
+                                  ),
+                                  IGPost(
+                                    image: 'bompiani.JPG',
+                                    text: 'Bompiani',
+                                    url:
+                                        'https://www.instagram.com/p/B4xiXunHnez/',
+                                    width:
+                                        MediaQuery.of(context).size.width * .22,
+                                  ),
+                                  Text(
+                                    'Add Editore, Edizioni Clichy, AbEditore ed altri',
+                                    style:
+                                        TextStyle(inherit: true, fontSize: 20),
+                                  )
+                                ],
+                              )
+                            : Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text('inoltre collaboro con:'),
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        IGPost(
+                                          image: 'feltrinelli.JPG',
+                                          url:
+                                              'https://www.instagram.com/p/B2g-vraHIef/',
+                                          text: 'Feltrinelli Editore',
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              .22,
+                                        ),
+                                        IGPost(
+                                          image: 'eo.JPG',
+                                          text: 'Edizioni E/O',
+                                          url:
+                                              'https://www.instagram.com/p/B5IrsIRH2pY/',
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              .22,
+                                        ),
+                                        IGPost(
+                                          image: 'bompiani.JPG',
+                                          text: 'Bompiani',
+                                          url:
+                                              'https://www.instagram.com/p/B4xiXunHnez/',
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              .22,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Text(
+                                    'Add Editore, Edizioni Clichy, AbEditore ed altri',
+                                    style:
+                                        TextStyle(inherit: true, fontSize: 20),
+                                  )
+                                ],
+                              ),
                       ),
-                      Center(
-                        child: Icon(
-                          Icons.play_arrow,
-                          color: Colors.white,
-                          size: 90,
+                    ),
+                    Text('e inoltre'),
+                    Collaborazione(
+                      title: 'DAME',
+                      testo:
+                          'Collaborazione con il brand DAME per cui ho creato una video recensione del loro prodotto.',
+                      contenuto: MouseCursor(
+                        child: GestureDetector(
+                          onTap: () => html.window.open(
+                              'https://www.instagram.com/tv/B4mrzSInVt4/', ''),
+                          child: Stack(
+                            children: [
+                              Center(
+                                child: Image.asset('dame.jpg'),
+                              ),
+                              Center(
+                                child: Icon(
+                                  Icons.play_arrow,
+                                  color: Colors.white,
+                                  size: 90,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    Collaborazione(
+                      title: 'LALALAB',
+                      testo:
+                          'Collaborazione in corso con scambio di prodotti e con codice sconto affiliato.\nPromozione del brand con foto e storie sul mio profilo Instagram.',
+                      contenuto: IGPost(
+                        url: 'https://www.instagram.com/p/B2R1YNcnGHm/',
+                        image: 'lalalab.JPG',
+                      ),
+                    ),
+                    Collaborazione(
+                      title: 'WE ARE KNITTERS',
+                      testo:
+                          'Collaborazione in corso da un paio d’anni con scambio di prodotti.\nPromozione del brand attraverso un Giveaway di un kit per un maglia all’uncinetto.\nShowcase dei prodotti attraverso foto e dettagli condivisi sul profilo e nelle storie Instagram.',
+                      contenuto: IGCarousel(img: wakIMG),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : Container(
+              padding: EdgeInsets.symmetric(horizontal: 200, vertical: 50),
+              child: DefaultTextStyle(
+                style: TextStyle(
+                  fontFamily: 'AmericanTypewriter',
+                  color: Colors.black,
+                  fontSize: 30,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      'COLLABORAZIONI',
+                      style: TextStyle(color: primario, fontSize: 65),
+                    ),
+                    Collaborazione(
+                        title: 'Bao Publishing',
+                        testo:
+                            'Collaborazione in corso da diversi anni, coinvolta come partecipante in alcuni Blog Tour organizzati da Bao per promuovere alcuni titoli.\n\n In particolare: \n - Blog Tour di presentazione de “Il re bianco” di Davide Toffolo\n - Partecipazione all’iniziativa “Non sono libri (solo) per ragazze” con il libro “California Dreamin’” Pénélope Bagieu',
+                        contenuto: IGCarousel(img: imgBAO)),
+                    Container(
+                      height: 600,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: primario,
+                            width: 4,
+                          ),
+                          borderRadius: BorderRadius.circular(20)),
+                      margin: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text('inoltre collaboro con:'),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                IGPost(
+                                  image: 'feltrinelli.JPG',
+                                  url:
+                                      'https://www.instagram.com/p/B2g-vraHIef/',
+                                  text: 'Feltrinelli Editore',
+                                  width:
+                                      MediaQuery.of(context).size.width * .22,
+                                ),
+                                IGPost(
+                                  image: 'eo.JPG',
+                                  text: 'Edizioni E/O',
+                                  url:
+                                      'https://www.instagram.com/p/B5IrsIRH2pY/',
+                                  width:
+                                      MediaQuery.of(context).size.width * .22,
+                                ),
+                                IGPost(
+                                  image: 'bompiani.JPG',
+                                  text: 'Bompiani',
+                                  url:
+                                      'https://www.instagram.com/p/B4xiXunHnez/',
+                                  width:
+                                      MediaQuery.of(context).size.width * .22,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Text(
+                            'Add Editore, Edizioni Clichy, AbEditore ed altri',
+                            style: TextStyle(inherit: true, fontSize: 20),
+                          )
+                        ],
+                      ),
+                    ),
+                    /* Text(
+                'Feltrinelli Editore, Add Editore, Bompiani, Edizioni Clichy, ...',
+                style: TextStyle(inherit: true, fontSize: 24),
+              ), */
+                    Text('e inoltre'),
+                    Collaborazione(
+                      title: 'DAME',
+                      testo:
+                          'Collaborazione con il brand DAME per cui ho creato una video recensione del loro prodotto.',
+                      contenuto: MouseCursor(
+                        child: GestureDetector(
+                          onTap: () => html.window.open(
+                              'https://www.instagram.com/tv/B4mrzSInVt4/', ''),
+                          child: Stack(
+                            children: [
+                              Center(
+                                child: Image.asset('dame.jpg'),
+                              ),
+                              Center(
+                                child: Icon(
+                                  Icons.play_arrow,
+                                  color: Colors.white,
+                                  size: 90,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Collaborazione(
+                      title: 'LALALAB',
+                      testo:
+                          'Collaborazione in corso con scambio di prodotti e con codice sconto affiliato.\nPromozione del brand con foto e storie sul mio profilo Instagram.',
+                      contenuto: IGPost(
+                        url: 'https://www.instagram.com/p/B2R1YNcnGHm/',
+                        image: 'lalalab.JPG',
+                      ),
+                    ),
+                    Collaborazione(
+                      title: 'WE ARE KNITTERS',
+                      testo:
+                          'Collaborazione in corso da un paio d’anni con scambio di prodotti.\nPromozione del brand attraverso un Giveaway di un kit per un maglia all’uncinetto.\nShowcase dei prodotti attraverso foto e dettagli condivisi sul profilo e nelle storie Instagram.',
+                      contenuto: IGCarousel(img: wakIMG),
+                    ),
+                  ],
                 ),
               ),
             ),
-            Collaborazione(
-              title: 'LALALAB',
-              testo:
-                  'Collaborazione in corso con scambio di prodotti e con codice sconto affiliato.\nPromozione del brand con foto e storie sul mio profilo Instagram.',
-              contenuto: IGPost(
-                url: 'https://www.instagram.com/p/B2R1YNcnGHm/',
-                image: 'lalalab.JPG',
-              ),
-            ),
-            Collaborazione(
-              title: 'WE ARE KNITTERS',
-              testo:
-                  'Collaborazione in corso da un paio d’anni con scambio di prodotti.\nPromozione del brand attraverso un Giveaway di un kit per un maglia all’uncinetto.\nShowcase dei prodotti attraverso foto e dettagli condivisi sul profilo e nelle storie Instagram.',
-              contenuto: IGCarousel(img: wakIMG),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

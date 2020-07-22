@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sito_portfolio/main.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -21,9 +22,10 @@ class InformaticaCV extends StatelessWidget {
                 child: Container(
                   child: Column(
                     children: [
-                      Text(
+                      AutoSizeText(
                         'Esperienze e progetti formativi',
                         textScaleFactor: 2.5,
+                        maxLines: 1,
                       ),
                       TimelineTile(
                         alignment: TimelineAlign.center,
@@ -95,7 +97,7 @@ class InformaticaCV extends StatelessWidget {
                         indicatorStyle:
                             IndicatorStyle(color: primario, width: 25),
                         rightChild: Center(
-                          child: Text('2018 - oggi'),
+                          child: TestoDate(text: '2018 - oggi'),
                         ),
                         leftChild: ContentWidget(
                           testi: [
@@ -113,107 +115,8 @@ class InformaticaCV extends StatelessWidget {
                         topLineStyle: LineStyle(color: primario),
                         indicatorStyle:
                             IndicatorStyle(color: primario, width: 25),
-                        leftChild: Center(
-                          child: Text('2018 - oggi'),
-                        ),
-                        rightChild: Padding(
-                          padding: const EdgeInsets.all(8.0)
-                              .add(EdgeInsets.symmetric(vertical: 30)),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                              height: 400,
-                              constraints: BoxConstraints.tightForFinite(
-                                width: .6 * MediaQuery.of(context).size.width,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Principali progetti svolti',
-                                    textScaleFactor: 1.5,
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Progettazione di un database di gestione di un istituto penitenziario',
-                                        textScaleFactor: 1.2,
-                                      ),
-                                      Text(
-                                          'Il progetto è stato svolto come verifica delle competenze per un esame universitario. Lo scopo era di pensare uno scenario reale dove fosse necessario un database, individuare le componenti fondamentali e da li sviluppare la struttura e proporre alcuni esempi di interazione col database.'),
-                                      RaisedButton(
-                                        onPressed: () {
-                                          window.open(
-                                              'https://github.com/pierabragaggia/progettobasi',
-                                              '');
-                                        },
-                                        child: Text(
-                                            'Premi qui per vederne i dettagli'),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Progettazione e sviluppo di un\'app Android per il controllo di una stampante realizzata con Lego Mindstorm®',
-                                          textScaleFactor: 1.2,
-                                        ),
-                                        Text(
-                                            'Il progetto è stato svolto come esame universitario. L\'obiettivo era di ideare, progettare e sviluppare un robot con Lego Mindstorm e un\'applicazione Android per il suo utilizzo.'),
-                                        RaisedButton(
-                                          onPressed: () {
-                                            window.open(
-                                                'https://github.com/pierabragaggia/progettoSWE',
-                                                '');
-                                          },
-                                          child: Text(
-                                              'Premi qui per vederne i dettagli'),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Sviluppo di una semplice macchina virtuale scritta in C',
-                                          textScaleFactor: 1.2,
-                                        ),
-                                        Text(
-                                            'Il progetto è stato svolto come esame universitario. L\'obiettivo era di ideare, progettare e sviluppare un robot con Lego Mindstorm e un\'applicazione Android per il suo utilizzo.'),
-                                        RaisedButton(
-                                          onPressed: () {
-                                            window.open(
-                                                'https://github.com/pierabragaggia/progettoC',
-                                                '');
-                                          },
-                                          child: Text(
-                                              'Premi qui per vederne i dettagli'),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                        leftChild: TestoDate(text: '2018 - oggi'),
+                        rightChild: Progetti(),
                       ),
                     ],
                   ),
@@ -234,6 +137,135 @@ class InformaticaCV extends StatelessWidget {
   }
 }
 
+class TestoDate extends StatelessWidget {
+  const TestoDate({
+    Key key,
+    this.text,
+  }) : super(key: key);
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Container(
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width * .1,
+        ),
+        padding: EdgeInsets.all(8),
+        child: Center(
+          child: Text(
+            text,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Progetti extends StatelessWidget {
+  const Progetti({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding:
+          const EdgeInsets.all(8.0).add(EdgeInsets.symmetric(vertical: 30)),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: FittedBox(
+          child: Container(
+            constraints: BoxConstraints.tightForFinite(
+              width: .6 * MediaQuery.of(context).size.width,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Principali progetti svolti',
+                  textScaleFactor: 1.5,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Progettazione di un database di gestione di un istituto penitenziario',
+                      textScaleFactor: 1.2,
+                    ),
+                    Text(
+                        'Il progetto è stato svolto come verifica delle competenze per un esame universitario. Lo scopo era di pensare uno scenario reale dove fosse necessario un database, individuare le componenti fondamentali e da li sviluppare la struttura e proporre alcuni esempi di interazione col database.'),
+                    RaisedButton(
+                      onPressed: () {
+                        window.open(
+                            'https://github.com/pierabragaggia/progettobasi',
+                            '');
+                      },
+                      child: Text('Premi qui per vederne i dettagli'),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Progettazione e sviluppo di un\'app Android per il controllo di una stampante realizzata con Lego Mindstorm®',
+                        textScaleFactor: 1.2,
+                      ),
+                      Text(
+                          'Il progetto è stato svolto come esame universitario. L\'obiettivo era di ideare, progettare e sviluppare un robot con Lego Mindstorm e un\'applicazione Android per il suo utilizzo.'),
+                      RaisedButton(
+                        onPressed: () {
+                          window.open(
+                              'https://github.com/pierabragaggia/progettoSWE',
+                              '');
+                        },
+                        child: Text('Premi qui per vederne i dettagli'),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Sviluppo di una semplice macchina virtuale scritta in C',
+                        textScaleFactor: 1.2,
+                      ),
+                      Text(
+                          'Il progetto è stato svolto come esame universitario. L\'obiettivo era di ideare, progettare e sviluppare un robot con Lego Mindstorm e un\'applicazione Android per il suo utilizzo.'),
+                      RaisedButton(
+                        onPressed: () {
+                          window.open(
+                              'https://github.com/pierabragaggia/progettoC',
+                              '');
+                        },
+                        child: Text('Premi qui per vederne i dettagli'),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class ContentWidget extends StatelessWidget {
   const ContentWidget({Key key, this.testi, this.right = false})
       : super(key: key);
@@ -243,33 +275,35 @@ class ContentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding:
-          const EdgeInsets.all(8.0).add(EdgeInsets.symmetric(vertical: 30)),
+          const EdgeInsets.all(8.0).add(EdgeInsets.symmetric(vertical: 10)),
       child: Align(
         alignment: right ? Alignment.centerRight : Alignment.centerLeft,
-        child: Container(
-          constraints: BoxConstraints.tightForFinite(
-            width: .59 * MediaQuery.of(context).size.width,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment:
-                right ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-            children: testi
-                .asMap()
-                .map((i, e) => MapEntry(
-                    i,
-                    i == 0
-                        ? Text(
-                            e,
-                            textScaleFactor: 1.3,
-                          )
-                        : Expanded(
-                            child: Text(
-                            e,
-                            textAlign: right ? TextAlign.right : TextAlign.left,
-                          ))))
-                .values
-                .toList(),
+        child: FittedBox(
+          fit: BoxFit.contain,
+          child: Container(
+            constraints: BoxConstraints.tightForFinite(
+              width: .59 * MediaQuery.of(context).size.width,
+            ),
+            child: Column(
+              crossAxisAlignment:
+                  right ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+              children: testi
+                  .asMap()
+                  .map((i, e) => MapEntry(
+                      i,
+                      i == 0
+                          ? Text(
+                              e,
+                              textScaleFactor: 1.3,
+                            )
+                          : Text(
+                              e,
+                              textAlign:
+                                  right ? TextAlign.right : TextAlign.left,
+                            )))
+                  .values
+                  .toList(),
+            ),
           ),
         ),
       ),

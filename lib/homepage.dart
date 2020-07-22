@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sito_portfolio/Presentazione.dart';
 import 'package:sito_portfolio/VaiA.dart';
+import 'package:sito_portfolio/util.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key key}) : super(key: key);
@@ -23,12 +24,29 @@ class MyHomePage extends StatelessWidget {
               ],
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Presentazione(),
-              VaiA(),
-            ],
+          LayoutBuilder(
+            builder: (context, constraints) => isMedium(constraints)
+                ? SingleChildScrollView(
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top:8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Presentazione(),
+                            VaiA(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Presentazione(),
+                      VaiA(),
+                    ],
+                  ),
           )
         ],
       ),

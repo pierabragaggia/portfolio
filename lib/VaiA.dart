@@ -2,30 +2,58 @@ import 'package:flutter/material.dart';
 import 'package:sito_portfolio/informatica.dart';
 import 'package:sito_portfolio/social.dart';
 import 'package:sito_portfolio/main.dart';
+import 'package:sito_portfolio/util.dart';
 
 class VaiA extends StatelessWidget {
   const VaiA({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Bottone(
-            child: Informatica(),
-            childHover: Informatica(
-              hover: true,
+    return LayoutBuilder(
+      builder: (context, constraints) => isMedium(constraints)
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  constraints: BoxConstraints(minHeight: 10, maxHeight: 30),
+                ),
+                FittedBox(
+                  child: Bottone(
+                    child: Informatica(),
+                    childHover: Informatica(
+                      hover: true,
+                    ),
+                    goTo: InformaticaCV(),
+                  ),
+                ),
+                FittedBox(
+                  child: Bottone(
+                    child: IgInfo(),
+                    childHover: IgInfoHover(),
+                    goTo: SocialPage(),
+                  ),
+                )
+              ],
+            )
+          : Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Bottone(
+                    child: Informatica(),
+                    childHover: Informatica(
+                      hover: true,
+                    ),
+                    goTo: InformaticaCV(),
+                  ),
+                  Bottone(
+                    child: IgInfo(),
+                    childHover: IgInfoHover(),
+                    goTo: SocialPage(),
+                  )
+                ],
+              ),
             ),
-            goTo: InformaticaCV(),
-          ),
-          Bottone(
-            child: IgInfo(),
-            childHover: IgInfoHover(),
-            goTo: SocialPage(),
-          )
-        ],
-      ),
     );
   }
 }
@@ -49,34 +77,42 @@ class _BottoneState extends State<Bottone> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => _changeHover(),
-      onExit: (_) => _changeHover(),
-      child: GestureDetector(
-        onTap: () => widget.goTo != null
-            ? Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => widget.goTo))
-            : null,
-        child: Stack(alignment: Alignment.center, children: [
-          Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: primario,
-            ),
-            width: 500,
-            height: 500,
-            child: Center(
-              child: !hover ? widget.child : widget.childHover ?? widget.child,
-            ),
+    return LayoutBuilder(
+      builder: (context, constraints) => MouseRegion(
+        onEnter: (_) => _changeHover(),
+        onExit: (_) => _changeHover(),
+        child: GestureDetector(
+          onTap: () => widget.goTo != null
+              ? Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => widget.goTo))
+              : null,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: primario,
+                ),
+                width: isMedium(constraints) ? 300 : 470,
+                height: isMedium(constraints) ? 300 : 470,
+                child: Center(
+                  child:
+                      !hover ? widget.child : widget.childHover ?? widget.child,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(8.0),
+                width: isMedium(constraints) ? 290 : 460,
+                height: isMedium(constraints) ? 290 : 460,
+                decoration: BoxDecoration(
+                    border: Border.all(width: 7, color: Colors.white),
+                    shape: BoxShape.circle),
+              )
+            ],
           ),
-          Container(
-            width: 490,
-            height: 490,
-            decoration: BoxDecoration(
-                border: Border.all(width: 7, color: Colors.white),
-                shape: BoxShape.circle),
-          )
-        ]),
+        ),
       ),
     );
   }

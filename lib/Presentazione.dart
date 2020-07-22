@@ -1,4 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:sito_portfolio/util.dart';
 import 'package:universal_html/html.dart' as html;
 
 class Presentazione extends StatelessWidget {
@@ -6,69 +8,146 @@ class Presentazione extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        /* Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.black,
-          ),
-          width: 100,
-          height: 100,
-        ), */
-        CircleAvatar(
-          child: ClipOval(
-            child: Image.asset('profile.jpg'),
-          ),
-          minRadius: 50,
-          maxRadius: 100,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 50.0),
-          child: Column(
-            children: [
-              Text(
-                'Piera Bragaggia',
-                style: TextStyle(fontSize: 36),
-              ),
-              Text(
-                '- Studentessa, Content Creator -',
-                style: TextStyle(fontSize: 20),
-              ),
-              Row(
-                children: [
-                  SocialIcon(
-                    icon: 'linkedin.png',
-                    url:
-                        'https://www.linkedin.com/in/piera-bragaggia-1227b51a9/',
-                  ),
-                  SocialIcon(
-                    icon: 'instagram.png',
-                    url: 'https://www.instagram.com/pieradeglispiriti/',
-                  ),
-                  SocialIcon(
-                    icon: 'youtube.png',
-                    url: 'https://www.youtube.com/pieradeglispiriti',
-                  ),
-                  SocialIcon(
-                    icon: 'pinterest.png',
-                    url: 'https://www.pinterest.it/pieradeglispiriti/',
-                  ),
-                ],
-              ),
-              RaisedButton(
-                child: Row(
+    return LayoutBuilder(
+      builder: (context, constraints) => isMedium(constraints)
+          ? Container(
+              constraints: constraints,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Curriculum Vitae '),
-                    Icon(Icons.arrow_forward_ios),
-                  ],
+                    CircleAvatar(
+                      child: ClipOval(
+                        child: Image.asset('profile.jpg'),
+                      ),
+                      minRadius: 50,
+                      maxRadius: 70,
+                    ),
+                    FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: AutoSizeText(
+                                'Piera Bragaggia',
+                                style: TextStyle(fontSize: 36),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: AutoSizeText(
+                                '- Studentessa, Content Creator -',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                SocialIcon(
+                                  icon: 'linkedin.png',
+                                  url:
+                                      'https://www.linkedin.com/in/piera-bragaggia-1227b51a9/',
+                                ),
+                                SocialIcon(
+                                  icon: 'instagram.png',
+                                  url:
+                                      'https://www.instagram.com/pieradeglispiriti/',
+                                ),
+                                SocialIcon(
+                                  icon: 'youtube.png',
+                                  url:
+                                      'https://www.youtube.com/pieradeglispiriti',
+                                ),
+                                SocialIcon(
+                                  icon: 'pinterest.png',
+                                  url:
+                                      'https://www.pinterest.it/pieradeglispiriti/',
+                                ),
+                              ],
+                            ),
+                            RaisedButton(
+                              child: Row(
+                                children: [
+                                  AutoSizeText('Curriculum Vitae '),
+                                  Icon(Icons.arrow_forward_ios),
+                                ],
+                              ),
+                              onPressed: () =>
+                                  html.window.open('assets/cv.pdf', ''),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ]),
+            )
+          : Container(
+              constraints: constraints,
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                CircleAvatar(
+                  child: ClipOval(
+                    child: Image.asset('profile.jpg'),
+                  ),
+                  minRadius: 50,
+                  maxRadius: 125,
                 ),
-                onPressed: () => html.window.open('assets/cv.pdf', ''),
-              ),
-            ],
-          ),
-        ),
-      ]),
+                FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 50.0),
+                    child: Column(
+                      children: [
+                        AutoSizeText(
+                          'Piera Bragaggia',
+                          style: TextStyle(fontSize: 36),
+                        ),
+                        AutoSizeText(
+                          '- Studentessa, Content Creator -',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Row(
+                          children: [
+                            SocialIcon(
+                              icon: 'linkedin.png',
+                              url:
+                                  'https://www.linkedin.com/in/piera-bragaggia-1227b51a9/',
+                            ),
+                            SocialIcon(
+                              icon: 'instagram.png',
+                              url:
+                                  'https://www.instagram.com/pieradeglispiriti/',
+                            ),
+                            SocialIcon(
+                              icon: 'youtube.png',
+                              url: 'https://www.youtube.com/pieradeglispiriti',
+                            ),
+                            SocialIcon(
+                              icon: 'pinterest.png',
+                              url:
+                                  'https://www.pinterest.it/pieradeglispiriti/',
+                            ),
+                          ],
+                        ),
+                        RaisedButton(
+                          child: Row(
+                            children: [
+                              AutoSizeText('Curriculum Vitae '),
+                              Icon(Icons.arrow_forward_ios),
+                            ],
+                          ),
+                          onPressed: () =>
+                              html.window.open('assets/cv.pdf', ''),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ]),
+            ),
     );
   }
 }
